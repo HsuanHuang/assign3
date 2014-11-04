@@ -54,7 +54,7 @@ void draw(){
     case GAME_START:
           background(180);
           image(bg,0,0,640,480);
-          textFont(loadFont("font/Square_One.ttf"),20);
+          textFont(loadFont("font/Square_One.ttf"),16);;
           fill(0);
           text("Choose # of bombs to continue:",10,width/3-24);
           int spacing = width/9;
@@ -71,6 +71,7 @@ void draw(){
           if(clickCount == totalSlots - bombCount ){
             gameState = GAME_WIN;
           }
+          
           // -----------------------------------
           break;
     case GAME_WIN:
@@ -82,10 +83,13 @@ void draw(){
                if( slot[i][j] == SLOT_OFF && slot[i][j] != SLOT_BOMB){
                showSlot(i,j,SLOT_SAFE);
                slot[i][j] = SLOT_SAFE;
+               if( slot[i][j] == SLOT_FLAG && slot[i][j] != SLOT_SAFE ){
+                 showSlot( i , j , SLOT_FLAG_BOMB );
+               }
               }
              }
             }
-          textFont(loadFont("font/Square_One.ttf"),24);
+          textFont(loadFont("font/Square_One.ttf"),18);;
           fill(0);
           text("YOU WIN !!",width/3,30);
           break;
@@ -101,7 +105,7 @@ void draw(){
               }
              }
             }
-          textFont(loadFont("font/Square_One.ttf"),24);
+          textFont(loadFont("font/Square_One.ttf"),18);;
           fill(0);
           text("YOU LOSE !!",width/3,30);
           break;
@@ -116,7 +120,7 @@ int count = 0;
      if(i<0 || i>3 ||j<0 || j>3){
        continue;
      }
-      else if ( slot[i][j] == SLOT_BOMB || slot [i][j] == SLOT_DEAD ){
+      else if ( slot[i][j] == SLOT_BOMB || slot [i][j] == SLOT_DEAD){
          count++;
          
           }         
@@ -223,13 +227,15 @@ void mouseClicked(){
 }
 int clickCol;
 int clickRow;
+
+
 void mousePressed(){
   if ( gameState == GAME_RUN &&
        mouseX >= ix && mouseX <= ix+sideLength && 
        mouseY >= iy && mouseY <= iy+sideLength){
     
     // --------------- put you code here -------  
-      if ( mouseButton == LEFT){
+       if ( mouseButton == LEFT){
               clickCol = int (( mouseX - ix ) / SLOT_SIZE);
               clickRow = int (( mouseY - iy ) / SLOT_SIZE);
                 if (slot[clickCol][clickRow] != SLOT_BOMB && slot[clickCol][clickRow] == SLOT_OFF){
@@ -244,22 +250,27 @@ void mousePressed(){
                 slot[clickCol][clickRow] = SLOT_DEAD;
                 gameState = GAME_LOSE;
               }
-       }else if ( mouseButton == RIGHT && flagCount <= bombCount){        
-          clickCol = int (( mouseX - ix ) / SLOT_SIZE);
-          clickRow = int (( mouseY - iy ) / SLOT_SIZE);
-            if(slot[clickCol][clickRow] == SLOT_OFF || slot[clickCol][clickRow] == SLOT_BOMB ){        
-               slot[clickCol][clickRow] = SLOT_FLAG;
-               showSlot(clickCol,clickRow,SLOT_FLAG);
-            }
-         
-
-       }else if( mouseButton == RIGHT && slot[clickCol][clickRow] == SLOT_FLAG ){ 
-                  clickCol = int (( mouseX - ix ) / SLOT_SIZE);
-                  clickRow = int (( mouseY - iy ) / SLOT_SIZE);           
-                  slot[clickCol][clickRow] = SLOT_OFF;
-                  showSlot(clickCol,clickRow,SLOT_OFF);
+//       }else if ( mouseButton == RIGHT && flagCount <= bombCount){        
+//          clickCol = int (( mouseX - ix ) / SLOT_SIZE);
+//          clickRow = int (( mouseY - iy ) / SLOT_SIZE);
+//            if(slot[clickCol][clickRow] == SLOT_OFF || slot[clickCol][clickRow] == SLOT_BOMB ){        
+//               slot[clickCol][clickRow] = SLOT_FLAG;
+//               showSlot(clickCol,clickRow,SLOT_FLAG);
+//            }
+//         
+//
+//       }else if( mouseButton == RIGHT && slot[clickCol][clickRow] == SLOT_FLAG ){ 
+//                  clickCol = int (( mouseX - ix ) / SLOT_SIZE);
+//                  clickRow = int (( mouseY - iy ) / SLOT_SIZE);           
+//                  slot[clickCol][clickRow] = SLOT_OFF;
+//                  showSlot(clickCol,clickRow,SLOT_OFF);
              }
           }
+          
+       
+          
+
+
 
        
  
