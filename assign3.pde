@@ -116,7 +116,7 @@ int count = 0;
      if(i<0 || i>3 ||j<0 || j>3){
        continue;
      }
-      else if ( slot[i][j] == SLOT_BOMB ){
+      else if ( slot[i][j] == SLOT_BOMB || slot [i][j] == SLOT_DEAD ){
          count++;
          
           }         
