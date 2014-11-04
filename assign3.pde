@@ -54,7 +54,7 @@ void draw(){
     case GAME_START:
           background(180);
           image(bg,0,0,640,480);
-          textFont(loadFont("font/Square_One.ttf"),20);
+          textSize(16);
           fill(0);
           text("Choose # of bombs to continue:",10,width/3-24);
           int spacing = width/9;
@@ -74,13 +74,34 @@ void draw(){
           // -----------------------------------
           break;
     case GAME_WIN:
-          textFont(loadFont("font/Square_One.ttf"),24);
+           for(int i=0 ; i<=3 ; i++){ 
+             for(int j=0 ; j<=3 ; j++){
+               if( slot[i][j] == SLOT_BOMB && slot[i][j] != SLOT_DEAD ){
+               showSlot( i , j , SLOT_BOMB );
+               }
+               if( slot[i][j] == SLOT_OFF && slot[i][j] != SLOT_BOMB){
+               showSlot(i,j,SLOT_SAFE);
+               slot[i][j] = SLOT_SAFE;
+              }
+             }
+            }
+          textSize(18);
           fill(0);
           text("YOU WIN !!",width/3,30);
           break;
     case GAME_LOSE:
-          
-          textFont(loadFont("font/Square_One.ttf"),24);
+          for(int i=0 ; i<=3 ; i++){ 
+             for(int j=0 ; j<=3 ; j++){
+               if( slot[i][j] == SLOT_BOMB && slot[i][j] != SLOT_DEAD ){
+               showSlot( i , j , SLOT_BOMB );
+               }
+               if( slot[i][j] == SLOT_OFF && slot[i][j] != SLOT_BOMB){
+               showSlot(i,j,SLOT_SAFE);
+               slot[i][j] = SLOT_SAFE;
+              }
+             }
+            }
+          textSize(18);
           fill(0);
           text("YOU LOSE !!",width/3,30);
           break;
@@ -98,8 +119,7 @@ int count = 0;
       else if ( slot[i][j] == SLOT_BOMB ){
          count++;
          
-          }
-          
+          }         
        }
        //println(count);
     }
@@ -231,21 +251,10 @@ void mousePressed(){
 //         slot[clickCol][clickRow] = SLOT_FLAG;
 //          }
        }
+
+
        
-       
-  if (gameState == GAME_WIN || gameState == GAME_LOSE){    
-      for(int i=0 ; i<=3 ; i++){ 
-       for(int j=0 ; j<=3 ; j++){
-         if( slot[i][j] == SLOT_BOMB && slot[i][j] != SLOT_DEAD ){
-         showSlot( i , j , SLOT_BOMB );
-         }
-         if( slot[i][j] == SLOT_OFF && slot[i][j] != SLOT_BOMB){
-         showSlot(i,j,SLOT_SAFE);
-         slot[i][j] = SLOT_SAFE;
-        }
-       }
-      }
-    }
+ 
 
     // -------------------------
     
