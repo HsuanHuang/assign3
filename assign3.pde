@@ -74,7 +74,7 @@ void draw(){
           
           // -----------------------------------
           break;
-    case GAME_WIN:
+          case GAME_WIN:
            for(int i=0 ; i<=3 ; i++){ 
              for(int j=0 ; j<=3 ; j++){
                if( slot[i][j] == SLOT_BOMB && slot[i][j] != SLOT_DEAD ){
@@ -83,12 +83,12 @@ void draw(){
                if( slot[i][j] == SLOT_OFF && slot[i][j] != SLOT_BOMB){
                showSlot(i,j,SLOT_SAFE);
                slot[i][j] = SLOT_SAFE;
+               }
                if( slot[i][j] == SLOT_FLAG && slot[i][j] != SLOT_SAFE ){
                  showSlot( i , j , SLOT_FLAG_BOMB );
                }
               }
              }
-            }
           textFont(loadFont("font/Square_One.ttf"),18);;
           fill(0);
           text("YOU WIN !!",width/3,30);
@@ -102,9 +102,12 @@ void draw(){
                if( slot[i][j] == SLOT_OFF && slot[i][j] != SLOT_BOMB){
                showSlot(i,j,SLOT_SAFE);
                slot[i][j] = SLOT_SAFE;
+               }
+               if( slot[i][j] == SLOT_FLAG && slot[i][j] != SLOT_SAFE ){
+                 showSlot( i , j , SLOT_FLAG_BOMB );
+               }
               }
              }
-            }
           textFont(loadFont("font/Square_One.ttf"),18);;
           fill(0);
           text("YOU LOSE !!",width/3,30);
@@ -250,29 +253,23 @@ void mousePressed(){
                 slot[clickCol][clickRow] = SLOT_DEAD;
                 gameState = GAME_LOSE;
               }
-//       }else if ( mouseButton == RIGHT && flagCount <= bombCount){        
-//          clickCol = int (( mouseX - ix ) / SLOT_SIZE);
-//          clickRow = int (( mouseY - iy ) / SLOT_SIZE);
-//            if(slot[clickCol][clickRow] == SLOT_OFF || slot[clickCol][clickRow] == SLOT_BOMB ){        
-//               slot[clickCol][clickRow] = SLOT_FLAG;
-//               showSlot(clickCol,clickRow,SLOT_FLAG);
-//            }
-//         
-//
-//       }else if( mouseButton == RIGHT && slot[clickCol][clickRow] == SLOT_FLAG ){ 
-//                  clickCol = int (( mouseX - ix ) / SLOT_SIZE);
-//                  clickRow = int (( mouseY - iy ) / SLOT_SIZE);           
-//                  slot[clickCol][clickRow] = SLOT_OFF;
-//                  showSlot(clickCol,clickRow,SLOT_OFF);
-             }
-          }
-          
-       
-          
-
-
-
-       
+         }else if ( mouseButton == RIGHT){        
+            clickCol = int (( mouseX - ix ) / SLOT_SIZE);
+            clickRow = int (( mouseY - iy ) / SLOT_SIZE);
+            if( slot[clickCol][clickRow] == SLOT_OFF || slot[clickCol][clickRow] == SLOT_BOMB ){ 
+                 if( flagCount < bombCount ){        
+                 slot[clickCol][clickRow] = SLOT_FLAG;
+                 showSlot(clickCol,clickRow,SLOT_FLAG);
+                 flagCount++;
+                 }
+            }
+            else if( slot[clickCol][clickRow] == SLOT_FLAG ){
+             showSlot ( clickCol , clickRow , SLOT_OFF );
+             slot[clickCol][clickRow] = SLOT_OFF;
+             flagCount--;
+            }
+         }
+       }
  
 
     // -------------------------
