@@ -229,7 +229,7 @@ void mousePressed(){
        mouseY >= iy && mouseY <= iy+sideLength){
     
     // --------------- put you code here -------  
-       if ( mouseButton == LEFT && slot[clickCol][clickRow] != SLOT_FLAG){
+      if ( mouseButton == LEFT){
               clickCol = int (( mouseX - ix ) / SLOT_SIZE);
               clickRow = int (( mouseY - iy ) / SLOT_SIZE);
                 if (slot[clickCol][clickRow] != SLOT_BOMB && slot[clickCol][clickRow] == SLOT_OFF){
@@ -238,20 +238,28 @@ void mousePressed(){
                   clickCount++;
                     
                 }
-              }
+              
               if(slot[clickCol][clickRow] == SLOT_BOMB){
                 showSlot( clickCol , clickRow , SLOT_DEAD );
                 slot[clickCol][clickRow] = SLOT_DEAD;
                 gameState = GAME_LOSE;
               }
-       
-//       if ( mouseButton == RIGHT  ){
-//         if(slot[clickCol][clickRow] == SLOT_OFF || slot[clickCol][clickRow] == SLOT_BOMB )
-//         showSlot(clickCol,clickRow,SLOT_FLAG);
-//         slot[clickCol][clickRow] = SLOT_FLAG;
-//          }
-       }
+       }else if ( mouseButton == RIGHT && flagCount <= bombCount){        
+          clickCol = int (( mouseX - ix ) / SLOT_SIZE);
+          clickRow = int (( mouseY - iy ) / SLOT_SIZE);
+            if(slot[clickCol][clickRow] == SLOT_OFF || slot[clickCol][clickRow] == SLOT_BOMB ){        
+               slot[clickCol][clickRow] = SLOT_FLAG;
+               showSlot(clickCol,clickRow,SLOT_FLAG);
+            }
+         
 
+       }else if( mouseButton == RIGHT && slot[clickCol][clickRow] == SLOT_FLAG ){ 
+                  clickCol = int (( mouseX - ix ) / SLOT_SIZE);
+                  clickRow = int (( mouseY - iy ) / SLOT_SIZE);           
+                  slot[clickCol][clickRow] = SLOT_OFF;
+                  showSlot(clickCol,clickRow,SLOT_OFF);
+             }
+          }
 
        
  
