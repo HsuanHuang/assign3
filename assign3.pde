@@ -54,7 +54,7 @@ void draw(){
     case GAME_START:
           background(180);
           image(bg,0,0,640,480);
-          textFont(loadFont("font/Square_One.ttf"),16);;
+          textFont(loadFont("font/Square_One.ttf"),16);
           fill(0);
           text("Choose # of bombs to continue:",10,width/3-24);
           int spacing = width/9;
@@ -74,7 +74,7 @@ void draw(){
           
           // -----------------------------------
           break;
-          case GAME_WIN:
+    case GAME_WIN:
            for(int i=0 ; i<=3 ; i++){ 
              for(int j=0 ; j<=3 ; j++){
                if( slot[i][j] == SLOT_BOMB && slot[i][j] != SLOT_DEAD ){
@@ -89,6 +89,7 @@ void draw(){
                }
               }
              }
+            
           textFont(loadFont("font/Square_One.ttf"),18);;
           fill(0);
           text("YOU WIN !!",width/3,30);
@@ -108,6 +109,7 @@ void draw(){
                }
               }
              }
+            
           textFont(loadFont("font/Square_One.ttf"),18);;
           fill(0);
           text("YOU LOSE !!",width/3,30);
@@ -256,7 +258,7 @@ void mousePressed(){
          }else if ( mouseButton == RIGHT){        
             clickCol = int (( mouseX - ix ) / SLOT_SIZE);
             clickRow = int (( mouseY - iy ) / SLOT_SIZE);
-            if( slot[clickCol][clickRow] == SLOT_BOMB){
+                   if( slot[clickCol][clickRow] == SLOT_BOMB){
                        if( flagCount < bombCount ){        
                        slot[clickCol][clickRow] = SLOT_FLAG_BOMB;
                        showSlot(clickCol,clickRow,SLOT_FLAG);
@@ -274,13 +276,22 @@ void mousePressed(){
                      slot[clickCol][clickRow] = SLOT_OFF;
                      flagCount--;
                     }
-                    
-             }
-       }
+            
+            
+            
+         }
+                 
+            
+
+          
+       
+
+
+       
  
 
     // -------------------------
-    
+       }
 }
 
 
